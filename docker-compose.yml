@@ -1,0 +1,43 @@
+nginx:
+ dockerfile: ./Dockerfile # путь до докер файла указываем относительно директории в build
+ build: ./nginx
+ ports:
+  - 8830:80
+ volumes:
+  - ./logs:/etc/logs/nginx
+ volumes_from:
+  - fpm:rw
+ environment:
+  - NGINX_HOST=localhost
+  - NGINX_PORT=80
+# command: nginx -g "daemon off;" # Можно было указать в докер-фале, но можно и здесь)
+ links:
+  - fpm
+fpm:
+ dockerfile: ./Dockerfile
+ build: ./fpm
+ volumes:
+  - ./php-code:/var/www/html/:rw
+ links:
+  - memcached
+  - mysql
+# Install memcached-server
+memcached:
+ dockerfile: ./Dockerfile
+ build: ./memcached
+# ports:
+# - 11211:11211
+#install Mysql-server
+mysql:
+ dockerfile: ./Dockerfile
+ build: ./mysql
+ volumes:
+ - ./DB_data:/var/lib/mysql
+ restart: always
+ environment:
+ - MYSQL_ROOT_PASSWORD=111
+ - MYSQL_DATABASE=nextcloud
+ - MYSQL_USER=nextcloud
+ - MYSQL_PASSWORD=jym4Ayl
+# ports:
+# - "33061:3306"
