@@ -2,7 +2,7 @@ nginx:
  dockerfile: ./Dockerfile # путь до докер файла указываем относительно директории в build
  build: ./nginx
  ports:
-  - 8830:80
+  - 88:80
  volumes:
   - ./logs:/etc/logs/nginx
  volumes_from:
@@ -35,9 +35,9 @@ mysql:
  - ./DB_data:/var/lib/mysql
  restart: always
  environment:
- - MYSQL_ROOT_PASSWORD=111
- - MYSQL_DATABASE=nextcloud
- - MYSQL_USER=nextcloud
- - MYSQL_PASSWORD=jym4Ayl
+ - MYSQL_ROOT_PASSWORD=rootpassword
+ - MYSQL_DATABASE=db
+ - MYSQL_USER=user
+ - MYSQL_PASSWORD=password
 # ports:
 # - "33061:3306"
