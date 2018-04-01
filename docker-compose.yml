@@ -1,6 +1,6 @@
 nginx:
  dockerfile: ./Dockerfile # путь до докер файла указываем относительно директории в build
- build: ./nginx
+ build: ./nginx_alpine
  ports:
   - 88:80
  volumes:
