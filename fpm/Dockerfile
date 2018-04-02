@@ -17,6 +17,8 @@ RUN apt-get update \
     libxml2-dev \
     libxslt1-dev \
     zlib1g-dev \
+    libzip-dev \
+    zip \
   && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql \
@@ -25,6 +27,8 @@ RUN docker-php-ext-install pdo_mysql \
     --enable-gd-native-ttf \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 && \
+     docker-php-ext-configure zip --with-libzip && \
+#  && docker-php-ext-install zip
      pecl install memcached-3.0.3 && \
      docker-php-ext-enable memcached && \
      docker-php-ext-install gd \
@@ -36,7 +40,7 @@ RUN docker-php-ext-install pdo_mysql \
 	bcmath \
   	gettext \
 	pcntl \
-	zip 
+        zip
 
 RUN rm /usr/local/etc/php-fpm.d/www.conf.default \
     && rm /usr/local/etc/php-fpm.conf.default 
