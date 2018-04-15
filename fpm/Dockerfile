@@ -30,7 +30,9 @@ RUN docker-php-ext-install pdo_mysql \
      docker-php-ext-configure zip --with-libzip && \
 #  && docker-php-ext-install zip
      pecl install memcached-3.0.3 && \
+     pecl install apcu-5.1.5 && \
      docker-php-ext-enable memcached && \
+     docker-php-ext-enable apcu && \
      docker-php-ext-install gd \
 	exif \
 	opcache \
