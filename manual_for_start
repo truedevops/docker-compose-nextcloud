@@ -1,0 +1,38 @@
+1 wget https://download.nextcloud.com/server/releases/nextcloud-13.0.1.zip
+2 apt install zip - Если есть zip - пропускаем этот шаг
+3 unzip nextcloud-13.0.1.zip
+4 mv nextcloud php-code/
+5 chown -R www-data: php-code
+6 Заходим в браузер ip-address хост машины :88
+7 настройка через WEB admin(LOG/PASS) каталог data по пути /var/www/html/data  База MySQL/MariaDB
+
+Пользователь базы данных: user
+Пароль базы данных: password
+Название Базы данных: db
+Путь к базе: mysql:3306
+Завершить установку.
+После установки нужно перезалогинится.
+
+настройка кэширующего сервера memcached -> vim php-code/nextcloud/config/config.php
+
+нужно вставить после этой строки:
+'installed' => true,
+
+Вот этот вот блок memcached:
+
+  'memcache.local' => '\\OC\\Memcache\\APCu',
+  'memcache.distributed' => '\\OC\\Memcache\\Memcached',
+  'memcached_servers' => array(
+     array('memcached', 11211),
+     array('memcached_1', 11211),
+     array('memcached_2', 11211),
+     ),
+
+Этот для Redis:
+
+'memcache.local' => '\OC\Memcache\Redis',
+'memcache.locking' => '\OC\Memcache\Redis',
+'redis' => array(
+     'host' => 'redis',
+     'port' => 6379,
+      ),
