@@ -42,11 +42,14 @@ RUN docker-php-ext-install pdo_mysql \
 	bcmath \
   	gettext \
 	pcntl \
+	xsl \
         zip
 
 RUN rm /usr/local/etc/php-fpm.d/www.conf.default \
     && rm /usr/local/etc/php-fpm.conf.default 
-COPY ./conf/php.ini /usr/local/etc/php/conf.d
+
+COPY ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 EXPOSE 9000
 
