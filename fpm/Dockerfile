@@ -31,7 +31,9 @@ RUN docker-php-ext-install pdo_mysql \
 #  && docker-php-ext-install zip
      pecl install memcached-3.0.3 && \
      pecl install apcu-5.1.5 && \
+     pecl install redis && \
      docker-php-ext-enable memcached && \
+     docker-php-ext-enable redis && \
      docker-php-ext-enable apcu && \
      docker-php-ext-install gd \
 	exif \
@@ -43,7 +45,8 @@ RUN docker-php-ext-install pdo_mysql \
   	gettext \
 	pcntl \
 	xsl \
-        zip
+        zip && \
+     docker-php-source delete
 
 RUN rm /usr/local/etc/php-fpm.d/www.conf.default \
     && rm /usr/local/etc/php-fpm.conf.default 

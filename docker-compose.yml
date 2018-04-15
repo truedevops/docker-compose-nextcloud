@@ -20,6 +20,7 @@ fpm:
   - ./php-code:/var/www/html/:rw
  links:
   - memcached
+  - redis
   - mysql
 # Install memcached-server
 memcached:
@@ -28,6 +29,9 @@ memcached:
 # ports:
 # - 11211:11211
 #install Mysql-server
+redis:
+ dockerfile: ./Dockerfile
+ build: ./redis
 mysql:
  dockerfile: ./Dockerfile
  build: ./mysql
